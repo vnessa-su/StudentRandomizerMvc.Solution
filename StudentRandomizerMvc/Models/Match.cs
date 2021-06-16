@@ -94,30 +94,6 @@ namespace StudentRandomizerMvc.Models
       var apiCallTask = ApiHelper.Delete(_route, id);
     }
 
-    public static List<Student> GetMatchStudents(int id)
-    {
-      string extendedRoute = _route + "/Students";
-      var apiCallTask = ApiHelper.GetJoin(extendedRoute, id);
-      var result = apiCallTask.Result;
-
-      JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
-      List<MatchStudent> joinList = JsonConvert.DeserializeObject<List<MatchStudent>>(jsonResponse.ToString());
-
-      List<Student> studentList = new List<Student>();
-      string studentRoute = "students";
-      foreach (MatchStudent join in joinList)
-      {
-        var apiStudentCallTask = ApiHelper.Get(studentRoute, join.StudentId);
-        var studentResult = apiStudentCallTask.Result;
-
-        JObject jsonStudentResponse = JsonConvert.DeserializeObject<JObject>(studentResult);
-        Student student = JsonConvert.DeserializeObject<Student>(jsonStudentResponse.ToString());
-
-        studentList.Add(student);
-      }
-      return studentList;
-    }
-
     public static void AddMatchStudent(int id, Student student)
     {
       string extendedRoute = _route + "/AddStudent";
@@ -127,8 +103,8 @@ namespace StudentRandomizerMvc.Models
 
     public static void DeleteMatchStudent(int id, int studentId)
     {
-      string extendedRoute = _route + "ADD_EXTENSION_HERE";
-      var apiCallTask = ApiHelper.DeleteJoin(extendedRoute, id, studentId);
+      string extendedRoute = "/Student";
+      var apiCallTask = ApiHelper.DeleteJoin(_route, id, extendedRoute, studentId);
     }
   }
 }

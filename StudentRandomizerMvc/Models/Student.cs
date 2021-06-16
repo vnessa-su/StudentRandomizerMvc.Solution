@@ -57,5 +57,50 @@ namespace StudentRandomizerMvc.Models
       this.Name = name;
     }
 
+    public static List<Student> GetMatchStudents(int id)
+    {
+      string extendedRoute = _route + "/Match";
+      var apiCallTask = ApiHelper.GetJoin(extendedRoute, id);
+      var result = apiCallTask.Result;
+
+      JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
+      List<MatchStudent> joinList = JsonConvert.DeserializeObject<List<MatchStudent>>(jsonResponse.ToString());
+
+      List<Student> studentList = new List<Student>();
+      foreach (MatchStudent join in joinList)
+      {
+        var apiStudentCallTask = ApiHelper.Get(_route, join.StudentId);
+        var studentResult = apiStudentCallTask.Result;
+
+        JObject jsonStudentResponse = JsonConvert.DeserializeObject<JObject>(studentResult);
+        Student student = JsonConvert.DeserializeObject<Student>(jsonStudentResponse.ToString());
+
+        studentList.Add(student);
+      }
+      return studentList;
+    }
+
+    public static List<Student> GetGroupStudents(int id)
+    {
+      string extendedRoute = _route + "/Group";
+      var apiCallTask = ApiHelper.GetJoin(extendedRoute, id);
+      var result = apiCallTask.Result;
+
+      JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
+      List<GroupStudent> joinList = JsonConvert.DeserializeObject<List<GroupStudent>>(jsonResponse.ToString());
+
+      List<Student> studentList = new List<Student>();
+      foreach (GroupStudent join in joinList)
+      {
+        var apiStudentCallTask = ApiHelper.Get(_route, join.StudentId);
+        var studentResult = apiStudentCallTask.Result;
+
+        JObject jsonStudentResponse = JsonConvert.DeserializeObject<JObject>(studentResult);
+        Student student = JsonConvert.DeserializeObject<Student>(jsonStudentResponse.ToString());
+
+        studentList.Add(student);
+      }
+      return studentList;
+    }
   }
 }

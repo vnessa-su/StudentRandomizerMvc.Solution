@@ -25,7 +25,7 @@ namespace StudentRandomizerMvc.Models
 
     public static List<Group> GetAllDatabaseGroupsForStudent(int studentId)
     {
-      string extendedRoute = _route + "ADD_EXTENSION_HERE?studentId=";
+      string extendedRoute = _route + "/GetStudent";
       var apiCallTask = ApiHelper.GetAllByForeignKey(extendedRoute, studentId);
       var result = apiCallTask.Result;
 
@@ -63,42 +63,17 @@ namespace StudentRandomizerMvc.Models
       var apiCallTask = ApiHelper.Delete(_route, id);
     }
 
-    public static List<Student> GetGroupStudents(int id)
-    {
-      string extendedRoute = _route + "ADD_EXTENSION_HERE";
-      var apiCallTask = ApiHelper.GetJoin(extendedRoute, id);
-      var result = apiCallTask.Result;
-
-      JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
-      List<GroupStudent> joinList = JsonConvert.DeserializeObject<List<GroupStudent>>(jsonResponse.ToString());
-
-      List<Student> studentList = new List<Student>();
-      string studentRoute = "students";
-      foreach (GroupStudent join in joinList)
-      {
-        var apiStudentCallTask = ApiHelper.Get(studentRoute, join.StudentId);
-        var studentResult = apiStudentCallTask.Result;
-
-        JObject jsonStudentResponse = JsonConvert.DeserializeObject<JObject>(studentResult);
-        Student student = JsonConvert.DeserializeObject<Student>(jsonStudentResponse.ToString());
-
-        studentList.Add(student);
-      }
-      return studentList;
-    }
-
     public static void AddGroupStudent(int id, Student student)
     {
-      string extendedRoute = _route + "ADD_EXTENSION_HERE";
+      string extendedRoute = _route + "/AddStudent";
       string jsonStudent = JsonConvert.SerializeObject(student);
       var apiCallTask = ApiHelper.PostJoin(extendedRoute, id, jsonStudent);
     }
 
     public static void DeleteGroupStudent(int id, int studentId)
     {
-      string extendedRoute = _route + "ADD_EXTENSION_HERE";
-      string studentRoute = "student";
-      var apiCallTask = ApiHelper.DeleteJoin(extendedRoute, id, studentRoute, studentId);
+      string extendedRoute = "/DeleteStudent";
+      var apiCallTask = ApiHelper.DeleteJoin(_route, id, extendedRoute, studentId);
     }
   }
 }
