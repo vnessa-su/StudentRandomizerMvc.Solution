@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System;
+using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace StudentRandomizerMvc.Models
 {
-  public class Student
+  public class Student : IEquatable<Student>
   {
     public int StudentId { get; set; }
     public string Name { get; set; }
@@ -14,6 +15,31 @@ namespace StudentRandomizerMvc.Models
     public List<Group> StudentGroupList { get; set; }
 
     private static string _route = "students";
+
+    public bool Equals(Student studentToCompare)
+    {
+      if (studentToCompare is null)
+      {
+        return false;
+      }
+
+      if (StudentId == studentToCompare.StudentId && Name == studentToCompare.Name)
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+    }
+    public override bool Equals(object obj) => Equals(obj as Student);
+    public override int GetHashCode() => (StudentId, Name).GetHashCode();
+
+    public static List<Student> FindStudentsNotIncluded(List<Student> allStudents, List<Student> compareStudentList)
+    {
+      List<Student> excludedStudents = allStudents.Except(compareStudentList).ToList();
+      return excludedStudents;
+    }
 
     public static List<Student> GetAllStudents()
     {
