@@ -1,0 +1,25 @@
+@{
+  Layout = "_Layout";
+}
+
+@model StudentRandomizerMvc.Models.Match
+
+<h2>Edit</h2>
+
+<h4>Edit this task: @Html.DisplayFor(model => model.Score)</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.MatchId)
+
+    @Html.LabelFor(model => model.Score)
+    @Html.EditorFor(model => model.Score)
+
+
+    @Html.Label("Select Group")
+    @Html.DropDownList("GroupId")
+
+    <input type="submit" value="Save" />
+}
+
+<p> @Html.ActionLink("Back to Match List", "Index") </p>

@@ -36,7 +36,7 @@ namespace StudentRandomizerMvc.Controllers
     {
       match.MatchId = id;
       Match.Put(match);
-      return RedirectToAction("Deatils", id);
+      return RedirectToAction("Details", id);
     }
     public IActionResult Delete(int id)
     {
