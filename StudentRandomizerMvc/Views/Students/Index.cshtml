@@ -10,3 +10,11 @@
   <li>@Html.ActionLink($"{student.Name} ({student.StudentId})", "Details", new { id = student.StudentId })</li>
 }
 </ul>
+
+@using (Html.BeginForm("Students", "Index", FormMethod.Post))
+{
+  @Html.LabelFor(model => model.Name)
+  @Html.TextBoxFor(model => model.Name)
+
+  <input type="submit" value="Add student" />
+}
