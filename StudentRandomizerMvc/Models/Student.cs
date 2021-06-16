@@ -11,15 +11,45 @@ namespace StudentRandomizerMvc.Models
     public string Name { get; set; }
 
     public List<Match> StudentMatchList { get; set; }
+    public List<Group> StudentGroupList { get; set; }
 
-    public static List<Match> GetMatchList()
+    private static string _route = "students";
+
+    public static List<Student> GetAllStudents()
     {
-      var apiCallTask = ApiHelper.GetAll();
+      var apiCallTask = ApiHelper.GetAll(_route);
       var result = apiCallTask.Result;
 
       JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
-      List<Match> matchList = JsonConvert.DeserializeObject<List<Match>>(jsonResponse.ToString());
-      return matchList;
+      List<Student> studentList = JsonConvert.DeserializeObject<List<Student>>(jsonResponse.ToString());
+      return studentList;
+    }
+
+    public static Student GetDetails(int id)
+    {
+      var apiCallTask = ApiHelper.Get(_route, id);
+      var result = apiCallTask.Result;
+
+      JObject jsonResponse = JsonConvert.DeserializeObject<JObject>(result);
+      Student student = JsonConvert.DeserializeObject<Student>(jsonResponse.ToString());
+      return student;
+    }
+
+    public static void Post(Student student)
+    {
+      string jsonStudent = JsonConvert.SerializeObject(student);
+      var apiCallTask = ApiHelper.Post(_route, jsonStudent);
+    }
+
+    public static void Put(Student student)
+    {
+      string jsonStudent = JsonConvert.SerializeObject(student);
+      var apiCallTask = ApiHelper.Put(_route, student.StudentId, jsonStudent);
+    }
+
+    public static void Delete(int id)
+    {
+      var apiCallTask = ApiHelper.Delete(_route, id);
     }
 
     public Student(string name)

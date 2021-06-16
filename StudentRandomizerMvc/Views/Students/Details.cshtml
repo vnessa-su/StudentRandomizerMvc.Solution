@@ -1,0 +1,14 @@
+@{
+  Layout = "_Layout";
+}
+@using StudentRandomizerMvc.Models.Student
+@model StudentRandomizerMvc.Models.Students
+
+<h2>Details for: @Html.DisplayNameFor(model => model.Name)</h2>
+
+<p>@Html.ActionLink("Edit Student", "Edit", new{ id = Model.StudentId})</p>
+<p>@Html.ActionLink("Back to list of students", "Index")</p>
+<p>@Html.ActionLink("Back Home", "Index", "Home")</p>
+
+
+

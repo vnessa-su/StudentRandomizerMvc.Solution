@@ -7,33 +7,26 @@ namespace StudentRandomizerMvc.Models
 {
   public class GroupScore
   {
-    public int MatchFrequency(int StudentId, int MatchStudentId)
+    public static int GetGroupScore(Group group)
     {
-      Stack<int> TempScore = new Stack<int>();
-      for (int i = 0; i < Student.Match.Count; i++)
+      int currentGroupScore = 0;
+      List<Student> groupStudents = group.DevTeamStudents;
+      for (int j = 0; j < groupStudents.Count; j++)
       {
-        if (StudentId == MatchStudentId)
+        for (int k = j + 1; k < groupStudents.Count; k++)
         {
-          TempScore.Push(Match);
+          Match commonMatch = Match.FindCommonMatch(groupStudents[j].StudentMatchList, groupStudents[k].StudentMatchList);
+          currentGroupScore += commonMatch.Score;
         }
       }
-      return TempScore;
+      return currentGroupScore;
     }
 
     public static void SetAllGroupScores(List<Group> allGeneratedGroups)
     {
       for (int i = 0; i < allGeneratedGroups.Count; i++)
       {
-        int currentGroupScore = 0;
-        List<Student> groupStudents = allGeneratedGroups[i].DevTeamStudents;
-        for (int j = 0; j < groupStudents.Count; j++)
-        {
-          for (int k = j + 1; k < groupStudents.Count; k++)
-          {
-            Match commonMatch = Match.FindCommonMatch(groupStudents[j].StudentMatchList, groupStudents[k].StudentMatchList);
-            currentGroupScore += commonMatch.Score;
-          }
-        }
+        int currentGroupScore = GetGroupScore(allGeneratedGroups[i]);
         allGeneratedGroups[i].GroupScore = currentGroupScore;
       }
     }

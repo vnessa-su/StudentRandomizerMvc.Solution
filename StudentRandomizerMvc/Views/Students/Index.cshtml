@@ -1,0 +1,12 @@
+@{ Layout = "_Layout"; }
+
+@model List<StudentRandomizerMvc.Models.Student>
+
+<h1>Student Roster</h1>
+
+<ul>
+@foreach (Student student in Model)
+{
+  <li>@Html.ActionLink($"{student.Name} ({student.StudentId})", "Details", new { id = student.StudentId })</li>
+}
+</ul>
