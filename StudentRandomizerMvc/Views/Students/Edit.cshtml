@@ -2,24 +2,19 @@
   Layout = "_Layout";
 }
 
-@model StudentRandomizerMvc.Models.Students
+@model StudentRandomizerMvc.Models.Student
 
 <h2>Edit</h2>
 
-<h4>Edit this task: @Html.Displayfor(model => model.Name)</h4>
+<h4>Edit: @Html.DisplayFor(model => model.Name)</h4>
 
 @using (Html.BeginForm())
 {
-    @Html.Hiddenfor(model => model.StudentId)
+  @Html.HiddenFor(model => model.StudentId)
 
-    @Html.Labelfor(model => model.Name)
-    @Html.EditorFor(model => model.Name)
-
-
-    @Html.Label("Select Group")
-    @Html.DropDownList("GroupId")
-
-    <input type="submit" value="Save" />
+  @Html.LabelFor(model => model.Name)
+  @Html.EditorFor(model => model.Name)
+  <input type="submit" value="Save" />
 }
 
-<p> @Html.ActionLink ("Back to Student List", "Index") </p>
+<p> @Html.ActionLink("Back to Student List", "Index") </p>

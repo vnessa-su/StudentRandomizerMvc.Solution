@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+
+using Microsoft.AspNetCore.JsonPatch;
 using StudentRandomizerMvc.Models;
 
 namespace StudentRandomizerMvc.Controllers
@@ -28,11 +30,16 @@ namespace StudentRandomizerMvc.Controllers
       var student = Student.GetDetails(id);
       return View(student);
     }
-
     public IActionResult Edit(int id)
     {
       var student = Student.GetDetails(id);
       return View(student);
+    }
+    [HttpPut]
+    public IActionResult Edit(Student student)
+    {
+      Student.Put(student);
+      return RedirectToAction("Index");
     }
 
     [HttpPost]

@@ -1,0 +1,13 @@
+@{
+  Layout = "_Layout";
+}
+@model StudentRandomizerMvc.Models.Match
+
+<h2>Details for: @Html.DisplayNameFor(model => model.MatchId)</h2>
+
+<p>@Html.ActionLink("Edit Match", "Edit", new{ id = Model.MatchId})</p>
+<p>@Html.ActionLink("Back to list of matches", "Index")</p>
+<p>@Html.ActionLink("Back Home", "Index", "Home")</p>
+
+
+
