@@ -1,53 +1,63 @@
 # Student Randomizer MVC
 
+#### MVC application for generating groups weighted by a score
+
+#### By Brent Hubbard, Jonathan Stull, Min Change, Vanessa Su
+
 ## Technologies Used
 
-- C# / .NET 5 Framework / MySQL / Entity
+- C#
+- .NET 5 Framework
+- Entity Framework Core
+- RestSharp
 
 ### Description
-Note: This application was generated to get the client side of the application for calling the Student Randomizer API: https://github.com/Brenthubbard/StudentRandomizer.Solution.
-Users can add a list of students into the application to generate a list of groups randomly. Integrated with a scoring methodology, each group will have a score where the lower the score, the better diverse the group will be. The application will generate groups with the lowest scores first but can also regenerate groups if the groups are not suitable for the user.
+
+_Note: This application was generated to get the client side of the application for calling the Student Randomizer API: https://github.com/Brenthubbard/StudentRandomizer.Solution._
+
+Web app displays all students, matches, and groups stored in a database. Users can generate groups, of all of the students in the database, of a desired size. The group selections are optimized by how many times the people in the group have been in a group together before, with preference for less times paired with others in a group. Then the user has the option to save the generated groups to the database or generate a new set of groups.
 
 ## Setup Instructions
-- Note: In order to run this application you will need to clone down the API from `https://github.com/vnessa-su/StudentRandomizerMvc.Solution`.
-1. Navigate to destination directory using `cd <directory name>` inside of the terminal.
-2. Clone repository to destinated directory using the syntax `git clone https://github.com/vnessa-su/StudentRandomizerMvc.Solution.git`.
-3. Open the repository using `code StudentRandomizerMvc.Solution`.
-4. Nagivate to project folder using `cd StudentRandomizerMvc`
-5. `dotnet restore` to install dependencies.
-6. `dotnet run` to run application on server http://localhost:4000/
-- Note: In order to run this on one machine you will have to configure your launchSettings.json to the application url http://localhost:4000/ or configure your WebHostDefaults in Program.cs with the following code `webBuilder.UseUrls("http://localhost:4000/");`.
 
-#### API Setup Instructions
-1. Clone repo in to destinated directory
-2. Change directory to StudentRandomizer.Solution/StudentRandomizer
-3. Install Dependencies with `dotnet restore`
-4. Create file name appsettings.json and enter following: `{ "ConnectionStrings": { "DefaultConnection": "Server=localhost;Port=3306;database=Student_Randomizer;uid=[user mysql username];pwd=[user mysql password];" } }`
-5. To create the database needed using the migrations tool `dotnet ef database update`
-6. To watch for live changes `dotnet watch run` in http://localhost:5000/
+### Prerequisites
 
-#### Launching API
-1. Navigate to the root StudentRandomizer file
-2. Using the command `dotnet run` in your terminal it will launch http://localhost:5000/ for you
-3. Access postman to make requests using the API
+- [.NET](https://dotnet.microsoft.com/)
+- A text editor like [VS Code](https://code.visualstudio.com/)
 
-#### Using Swagger
-- To use swagger nagivate to the http://localhost:5000/swagger page.
-- When running the API you can use swagger to document your api calls.
-- Swagger lets you see all the different requests accessed in the controller.
-- To test one of the requests simply click on the request(GET/POST/PUT/DELETE) then click try it out and then execute.
-- You will see the response body and the request URL for documentation.
+### Installation
+
+1. Clone repository: `git clone https://github.com/vnessa-su/StudentRandomizerMvc.Solution.git`.
+2. Navigate to the `/StudentRandomizerMvc.Solution` directory
+3. Open with your preferred text editor to view the code base
+
+- #### **Run the Program**
+
+1. Nagivate to project folder using `cd /StudentRandomizerMvc`
+2. `dotnet restore` to install dependencies.
+3. `dotnet run` to run application server
+4. Open http://localhost:4000/ in your preferred browser
+
+_Note: In order to run this on one machine you will have to configure your launchSettings.json to the application url http://localhost:4000/ or configure your WebHostDefaults in Program.cs with the following code `webBuilder.UseUrls("http://localhost:4000/");`._
+
+#### **API Setup Instructions**
+
+In order to be able to run the MVC web app with full functionality, you will need to also run the associate database API.
+
+See full setup and launch instruction here: `https://github.com/Brenthubbard/StudentRandomizer.Solution`
 
 ### Known Bugs
+
 - Currently there are optimizations for the database that needs to get done. In order for the user to use this application they would have to seed their own data using migrations to properly function the application. Work in progress is to get a more intuitive database that can update based on API calls.
 - Not all Views complete for CRUD functionality
+- Group score is not optimized when extra students are added to the groups
 
 ### License
 
 [MIT License](license)
 
 #### Contact Information
-- Min Chang: minchangmhc at gmail dot com
-- Vanessa Su: vnessa.su at gmail dot com
-- Jonathan Stull: jonathan.d.stull at gmail dot com
-- Brent Hubbard: hubbardbrent at hotmail dot com
+
+- Min Chang: minchangmhc@gmail.com
+- Vanessa Su: vnessa.su@gmail.com
+- Jonathan Stull: jonathan.d.stull@gmail.com
+- Brent Hubbard: hubbardbrent@hotmail.com
