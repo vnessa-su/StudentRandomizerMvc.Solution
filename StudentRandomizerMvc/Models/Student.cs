@@ -16,6 +16,8 @@ namespace StudentRandomizerMvc.Models
 
     private static string _route = "students";
 
+    public Student() { }
+
     public bool Equals(Student studentToCompare)
     {
       if (studentToCompare is null)
