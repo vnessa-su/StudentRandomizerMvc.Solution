@@ -46,10 +46,16 @@ namespace StudentRandomizerMvc.Models
       return group;
     }
 
-    public static void Post(Group group)
+    public static Group Post(Group group)
     {
       string jsonGroup = JsonConvert.SerializeObject(group);
       var apiCallTask = ApiHelper.Post(_route, jsonGroup);
+      var result = apiCallTask.Result;
+
+      JObject jsonResponse = JsonConvert.DeserializeObject<JObject>(result);
+      Group groupResponse = JsonConvert.DeserializeObject<Group>(jsonResponse.ToString());
+
+      return groupResponse;
     }
 
     public static void Put(Group group)

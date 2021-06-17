@@ -21,13 +21,14 @@ namespace StudentRandomizerMvc.Models
       return response.Content;
     }
 
-    public static async Task Post(string route, string newObject)
+    public static async Task<string> Post(string route, string newObject)
     {
       RestClient client = new RestClient("http://localhost:5000/api");
       RestRequest request = new RestRequest($"{route}", Method.POST);
       request.AddHeader("Content-Type", "application/json");
       request.AddJsonBody(newObject);
-      await client.ExecuteTaskAsync(request);
+      var response = await client.ExecuteTaskAsync(request);
+      return response.Content;
     }
 
     public static async Task Put(string route, int id, string newObject)
