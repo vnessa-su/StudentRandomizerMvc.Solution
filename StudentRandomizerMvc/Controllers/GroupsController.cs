@@ -60,8 +60,7 @@ namespace StudentRandomizerMvc.Controllers
       {
         student.StudentMatchList = Match.GetAllMatchesForStudent(student.StudentId);
       }
-      // int numberOfGroups = (int)Math.Floor((decimal)allStudents.Count / groupSize);
-      int numberOfGroups = 5;
+      int numberOfGroups = (int)Math.Floor((decimal)allStudents.Count / groupSize);
       List<Group> allGeneratedGroups = GroupGenerator.GenerateAllPossibleGroups(allStudents, groupSize);
       allGeneratedGroups = GroupScore.SetAllGroupScores(allGeneratedGroups);
       List<Group> optimalGroups = GroupSelection.SelectBestGroups(allGeneratedGroups, numberOfGroups, allStudents);
@@ -69,28 +68,31 @@ namespace StudentRandomizerMvc.Controllers
     }
 
     [HttpPost, ActionName("DisplayGenerated")]
-    public IActionResult AddGeneratedToDatabase(int groupSize = 5)
+    public IActionResult AddGeneratedToDatabase(int[] groupSizes, int[] groupScores, int[] studentIds)
     {
-      List<Student> allStudents = Student.GetAllStudents();
-      foreach (Student student in allStudents)
+      int currentIndex = 0;
+      for (int groupIndex = 0; groupIndex < groupSizes.Length; groupIndex++)
       {
-        student.StudentMatchList = Match.GetAllMatchesForStudent(student.StudentId);
-      }
-      // int numberOfGroups = (int)Math.Floor((decimal)allStudents.Count / groupSize);
-      int numberOfGroups = 5;
-      List<Group> allGeneratedGroups = GroupGenerator.GenerateAllPossibleGroups(allStudents, groupSize);
-      allGeneratedGroups = GroupScore.SetAllGroupScores(allGeneratedGroups);
-      List<Group> optimalGroups = GroupSelection.SelectBestGroups(allGeneratedGroups, numberOfGroups, allStudents);
-      foreach (Group group in optimalGroups)
-      {
-        Group newGroup = Group.Post(group);
-        for (int i = 0; i < group.DevTeamStudents.Count; i++)
+        Group newGroup = new Group { GroupScore = groupScores[groupIndex] };
+        newGroup = Group.Post(newGroup);
+
+        List<Student> studentsInGroup = new List<Student>();
+        int groupLimit = currentIndex + groupSizes[groupIndex];
+        for (int i = currentIndex; i < groupLimit; i++)
         {
-          Student student = group.DevTeamStudents[i];
+          Student student = Student.GetDetails(studentIds[currentIndex]);
+          student.StudentMatchList = Match.GetAllMatchesForStudent(student.StudentId);
           Group.AddGroupStudent(newGroup.GroupId, student);
-          for (int j = i + 1; j < group.DevTeamStudents.Count; j++)
+          studentsInGroup.Add(student);
+          currentIndex++;
+        }
+
+        for (int i = 0; i < studentsInGroup.Count; i++)
+        {
+          Student student = studentsInGroup[i];
+          for (int j = i + 1; j < studentsInGroup.Count; j++)
           {
-            Student matchStudent = group.DevTeamStudents[j];
+            Student matchStudent = studentsInGroup[j];
             Match match = Match.FindCommonMatch(student.StudentMatchList, matchStudent.StudentMatchList);
             Match.IncrementMatch(match);
           }
