@@ -99,16 +99,17 @@ body {
 
 }
 .footer {
+  /* right: 0; left: 0; bottom: 0;
   display: flex;
   flex-direction: column;
   width: 100%;
   white-space: nowrap;
   line-height: 60px; 
-  background-color: rgba(241, 185, 111, 0.602);
+  background-color: rgba(241, 185, 111, 0.602); */
   text-align: center;
-  border-style:solid;
+  /* border-style:solid;
   border-color: black;
-  border-width: me
+  border-width: 5px; */
 }
 
 ul, li {
