@@ -48,6 +48,14 @@ namespace StudentRandomizerMvc.Models
       await client.ExecuteTaskAsync(request);
     }
 
+    public static async Task DeleteAll(string route)
+    {
+      RestClient client = new RestClient("http://localhost:5000/api");
+      RestRequest request = new RestRequest($"{route}", Method.DELETE);
+      request.AddHeader("Content-Type", "application/json");
+      await client.ExecuteTaskAsync(request);
+    }
+
     public static async Task<string> GetJoin(string route, int id)
     {
       RestClient client = new RestClient("http://localhost:5000/api");

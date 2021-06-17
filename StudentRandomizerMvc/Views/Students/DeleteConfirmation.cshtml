@@ -1,0 +1,11 @@
+@{ Layout = "_Layout"; }
+
+<h2>Warning: You are about to delete all students!</h2>
+
+<p>
+  @using (Html.BeginForm("DeleteAll", "Students")) {
+  <input type="submit" value="Confirm deletion" />
+  }
+</p>
+
+<p>@Html.ActionLink("Back to safety", "Students", "Index")</p>

@@ -9,7 +9,12 @@
 <ul>
   @foreach (Student student in Model)
   {
-    <li>@Html.ActionLink($"{student.Name} ({student.StudentId})", "Details", new { id = student.StudentId })</li>
+    <li>@Html.ActionLink($"{student.Name} ({student.StudentId})", "Details", new { id = student.StudentId })
+      @using (Html.BeginForm("Delete", "Students", new { id = student.StudentId })) {
+        @Html.Hidden("id", @student.StudentId)
+        <input type="submit" value="x" />
+      }
+    </li>
   }
 </ul>
 @using (Html.BeginForm("DisplayGenerated", "Groups", FormMethod.Get))
@@ -19,7 +24,8 @@
 
   <button type="submit" class="btn btn-primary" title="Generate Groups">Generate Groups</button>
 }
-<p>@Html.ActionLink("Click Here to Add Students", "AddStudents", "Students")</p>
+<p>@Html.ActionLink("Add students", "AddStudents", "Students")</p>
+<p>@Html.ActionLink("Delete all students", "DeleteConfirmation", "Students")</p>
 <!-- @* @using (Html.BeginForm("Students", "Index", FormMethod.Post))
   {
   @Html.LabelFor(model => model.StudentMatchName)
