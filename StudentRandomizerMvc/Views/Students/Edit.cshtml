@@ -10,10 +10,12 @@
 
 
 <h1>Edit Info:</h1>
-<form action="/Students/Details/@(Model.StudentId)" method="post">
-  <label for="name">Student's Name</label>
-  <input id="name" name="name" type="text" value="@(Model.Name)">
-  <button type="submit">Go!</button>
-</form>
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.StudentId)
+  @Html.Label("Name")
+  @Html.TextBoxFor(model => model.Name)
+  <button type="submit" class="btn btn-primary" title="Save Student">Save Student</button>
+}
 
 <p> @Html.ActionLink("Back to Student List", "Index") </p>
