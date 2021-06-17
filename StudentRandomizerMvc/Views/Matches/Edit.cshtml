@@ -6,14 +6,14 @@
 
 <h2>Edit</h2>
 
-<h4>Edit this task: @Html.DisplayFor(model => model.Score)</h4>
+<h4>Edit this task: @Html.DisplayFor(model => model.MatchScore)</h4>
 
 @using (Html.BeginForm())
 {
   @Html.HiddenFor(model => model.MatchId)
 
-  @Html.LabelFor(model => model.Score)
-  @Html.EditorFor(model => model.Score)
+  @Html.LabelFor(model => model.MatchScore)
+  @Html.EditorFor(model => model.MatchScore)
 
 
 

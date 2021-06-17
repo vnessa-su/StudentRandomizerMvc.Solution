@@ -16,7 +16,7 @@ namespace StudentRandomizerMvc.Models
         for (int k = j + 1; k < groupStudents.Count; k++)
         {
           Match commonMatch = Match.FindCommonMatch(groupStudents[j].StudentMatchList, groupStudents[k].StudentMatchList);
-          currentGroupScore += commonMatch.Score;
+          currentGroupScore += commonMatch.MatchScore;
         }
       }
       return currentGroupScore;

@@ -9,7 +9,7 @@ namespace StudentRandomizerMvc.Models
   public class Match : IEquatable<Match>
   {
     public int MatchId { get; set; }
-    public int Score { get; set; }
+    public int MatchScore { get; set; }
 
     private static string _route = "matches";
 
@@ -20,7 +20,7 @@ namespace StudentRandomizerMvc.Models
         return false;
       }
 
-      if (MatchId == matchToCompare.MatchId && Score == matchToCompare.Score)
+      if (MatchId == matchToCompare.MatchId && MatchScore == matchToCompare.MatchScore)
       {
         return true;
       }
@@ -30,7 +30,7 @@ namespace StudentRandomizerMvc.Models
       }
     }
     public override bool Equals(object obj) => Equals(obj as Match);
-    public override int GetHashCode() => (MatchId, Score).GetHashCode();
+    public override int GetHashCode() => (MatchId, MatchScore).GetHashCode();
 
     public static Match FindCommonMatch(List<Match> studentMatches1, List<Match> studentMatches2)
     {
@@ -61,7 +61,14 @@ namespace StudentRandomizerMvc.Models
       var result = apiCallTask.Result;
 
       JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
-      List<Match> matchList = JsonConvert.DeserializeObject<List<Match>>(jsonResponse.ToString());
+      List<MatchStudent> matchStudentList = JsonConvert.DeserializeObject<List<MatchStudent>>(jsonResponse.ToString());
+
+      List<Match> matchList = new List<Match>();
+      foreach (MatchStudent matchStudent in matchStudentList)
+      {
+        Match match = Match.GetDetails(matchStudent.MatchId);
+        matchList.Add(match);
+      }
 
       return matchList;
     }
@@ -105,6 +112,13 @@ namespace StudentRandomizerMvc.Models
     {
       string extendedRoute = "/Student";
       var apiCallTask = ApiHelper.DeleteJoin(_route, id, extendedRoute, studentId);
+    }
+
+    public static void IncrementMatch(Match match)
+    {
+      match.MatchScore++;
+      string jsonMatch = JsonConvert.SerializeObject(match);
+      var apiCallTask = ApiHelper.Put(_route, match.MatchId, jsonMatch);
     }
   }
 }
