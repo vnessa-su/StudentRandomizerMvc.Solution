@@ -5,18 +5,29 @@
 @model IList<StudentRandomizerMvc.Models.Group>
 <h1>Generated Groups</h1>
 
-@foreach (Group group in Model)
-{
-  <p>Group - Score: @group.GroupScore</p>
-  <ul>
-  @foreach (Student student in group.DevTeamStudents)
-    {
-      <li>@student.Name</li>
-    }
-  </ul>
-}
-
 @using (Html.BeginForm())
 {
+  @foreach (Group group in Model)
+  {
+    <p>Group - Score: @group.GroupScore</p>
+    @Html.Hidden("groupSizes", group.DevTeamStudents.Count)
+    @Html.Hidden("groupScores", group.GroupScore)
+    <ul>
+    @foreach (Student student in group.DevTeamStudents)
+      {
+        <li>@student.Name</li>
+        @Html.Hidden("studentIds", student.StudentId)
+      }
+    </ul>
+  }
+
   <button type="submit" class="btn btn-primary" title="Save Groups">Save Groups</button>
+}
+
+@using (Html.BeginForm("DisplayGenerated", "Groups", FormMethod.Get))
+{
+  @Html.Label("Group Size")
+  @Html.DropDownList("groupSize", new SelectList(new List<int>(){2, 3, 4, 5, 6, 7, 8}))
+
+  <button type="submit" class="btn btn-primary" title="Regenerate Groups">Regenerate Groups</button>
 }
