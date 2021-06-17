@@ -1,20 +1,23 @@
-@{ Layout = "_Layout"; }
+@{
+  Layout = "_Layout";
+}
 
 @model List<StudentRandomizerMvc.Models.Student>
 
 <h1>Student Roster</h1>
 
 <ul>
-@foreach (Student student in Model)
-{
-  <li>@Html.ActionLink($"{student.Name} ({student.StudentId})", "Details", new { id = student.StudentId })</li>
-}
+  @foreach (Student student in Model)
+  {
+    <li>@Html.ActionLink($"{student.Name} ({student.StudentId})", "Details", new { id = student.StudentId })</li>
+  }
 </ul>
-
+<p>@Html.ActionLink("Generate Optimal Groups", "DisplayGenerated", "Groups")</p>
+<p>@Html.ActionLink("Click Here to Add Students", "AddStudents", "Students")</p>
 <!-- @* @using (Html.BeginForm("Students", "Index", FormMethod.Post))
-{
+  {
   @Html.LabelFor(model => model.StudentMatchName)
   @Html.TextBoxFor(model => model.StudentMatchName)
 
   <input type="submit" value="Add student" />
-} *@ -->
+  } *@ -->

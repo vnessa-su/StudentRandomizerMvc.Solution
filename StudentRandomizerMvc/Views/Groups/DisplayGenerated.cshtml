@@ -1,0 +1,19 @@
+@{
+  Layout = "_Layout";
+}
+
+@using StudentRandomizerMvc.Models
+@model List<StudentRandomizerMvc.Models.Group>
+
+<h1>Generated Groups</h1>
+
+@foreach (Group group in Model)
+{
+  <p>Group @group.GroupScore</p>
+  <ul>
+  @foreach (Student student in group.DevTeamStudents)
+    {
+      <li>@student.Name</li>
+    }
+  </ul>
+}

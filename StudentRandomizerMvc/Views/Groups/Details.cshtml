@@ -1,0 +1,17 @@
+@{
+  Layout = "_Layout";
+}
+@using StudentRandomizerMvc.Models
+@model StudentRandomizerMvc.Models.Group
+
+<h2>Details for Group @Html.DisplayFor(model => model.GroupId):</h2>
+<h2>Current students in this group:</h2>
+<ul>
+  @* @foreach (Student s in Model)
+    {
+    <li>
+    @s.Student.GetGroupStudents
+    </li>
+    } *@
+</ul>
+<h3>Group score: @Html.DisplayFor(model => model.GroupScore)</h3>

@@ -1,0 +1,17 @@
+@{
+  Layout = "_Layout";
+}
+
+@using StudentRandomizerMvc.Models
+@model StudentRandomizerMvc.Models.Student
+
+<h3>Add Students to this Cohort!</h3>
+
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(model => model.Name)
+  @Html.TextBoxFor(model => model.Name)
+  <input type="submit" value="Add new student" class="btn btn-Success" />
+}
+
+<p>@Html.ActionLink("Back to student list", "Index")</p>

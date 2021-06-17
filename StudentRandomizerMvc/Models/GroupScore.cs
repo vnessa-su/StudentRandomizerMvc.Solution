@@ -22,13 +22,15 @@ namespace StudentRandomizerMvc.Models
       return currentGroupScore;
     }
 
-    public static void SetAllGroupScores(List<Group> allGeneratedGroups)
+    public static List<Group> SetAllGroupScores(List<Group> allGeneratedGroups)
     {
       for (int i = 0; i < allGeneratedGroups.Count; i++)
       {
         int currentGroupScore = GetGroupScore(allGeneratedGroups[i]);
         allGeneratedGroups[i].GroupScore = currentGroupScore;
       }
+
+      return allGeneratedGroups;
     }
   }
 }

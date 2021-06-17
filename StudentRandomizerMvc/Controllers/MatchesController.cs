@@ -15,22 +15,26 @@ namespace StudentRandomizerMvc.Controllers
       var allMatches = Match.GetAllMatches();
       return View(allMatches);
     }
+
     [HttpPost]
     public IActionResult Index(Match match)
     {
       Match.Post(match);
       return RedirectToAction("Index");
     }
+
     public IActionResult Details(int id)
     {
       var match = Match.GetDetails(id);
       return View(match);
     }
+
     public IActionResult Edit(int id)
     {
       var match = Match.GetDetails(id);
       return View(match);
     }
+
     [HttpPost]
     public IActionResult Details(int id, Match match)
     {
@@ -38,6 +42,7 @@ namespace StudentRandomizerMvc.Controllers
       Match.Put(match);
       return RedirectToAction("Details", id);
     }
+    
     public IActionResult Delete(int id)
     {
       Match.Delete(id);

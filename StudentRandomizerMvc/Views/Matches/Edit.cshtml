@@ -10,16 +10,14 @@
 
 @using (Html.BeginForm())
 {
-    @Html.HiddenFor(model => model.MatchId)
+  @Html.HiddenFor(model => model.MatchId)
 
-    @Html.LabelFor(model => model.Score)
-    @Html.EditorFor(model => model.Score)
+  @Html.LabelFor(model => model.Score)
+  @Html.EditorFor(model => model.Score)
 
 
-    @Html.Label("Select Group")
-    @Html.DropDownList("GroupId")
 
-    <input type="submit" value="Save" />
+  <input type="submit" value="Save" />
 }
 
 <p> @Html.ActionLink("Back to Match List", "Index") </p>
