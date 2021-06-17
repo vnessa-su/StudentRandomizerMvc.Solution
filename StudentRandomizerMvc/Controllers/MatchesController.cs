@@ -26,6 +26,7 @@ namespace StudentRandomizerMvc.Controllers
     public IActionResult Details(int id)
     {
       var match = Match.GetDetails(id);
+      ViewBag.MatchStudents = Student.GetMatchStudents(id);
       return View(match);
     }
 
@@ -42,7 +43,7 @@ namespace StudentRandomizerMvc.Controllers
       Match.Put(match);
       return RedirectToAction("Details", id);
     }
-    
+
     public IActionResult Delete(int id)
     {
       Match.Delete(id);

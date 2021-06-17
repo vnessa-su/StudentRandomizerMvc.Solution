@@ -3,8 +3,9 @@
 }
 @model StudentRandomizerMvc.Models.Match
 
-<h2>Details for: @Html.DisplayFor(model => model.MatchId)</h2>
-<h2>Match Score: @Html.DisplayFor(model => model.Score)</h2>
+<h2>Match @Html.DisplayFor(model => model.MatchId)</h2>
+<h2>@ViewBag.MatchStudents[0].Name & @ViewBag.MatchStudents[1].Name<h2>
+<h2>Number of Times in a Team: @Html.DisplayFor(model => model.MatchScore)</h2>
 
 <p>@Html.ActionLink("Edit Match", "Edit", new{ id = Model.MatchId})</p>
 <p>@Html.ActionLink("Back to list of matches", "Index")</p>
