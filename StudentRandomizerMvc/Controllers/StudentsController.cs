@@ -36,12 +36,12 @@ namespace StudentRandomizerMvc.Controllers
       return View(student);
     }
 
-    // [HttpPut("{id}")]
-    // public IActionResult Edit(Student student)
-    // {
-    //   Student.Put(student);
-    //   return RedirectToAction("Index");
-    // }
+    [HttpPost]
+    public IActionResult Edit(Student student)
+    {
+      Student.Put(student);
+      return RedirectToAction("Index");
+    }
 
     [HttpPost]
     public IActionResult Details(int id, Student student)
