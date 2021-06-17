@@ -34,8 +34,3 @@ namespace StudentRandomizerMvc.Models
     }
   }
 }
-
-
-// we'll have 39 Id pairs for each student
-// the 39 Id's will have amount of times they were paired
-// 
