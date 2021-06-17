@@ -12,7 +12,13 @@
     <li>@Html.ActionLink($"{student.Name} ({student.StudentId})", "Details", new { id = student.StudentId })</li>
   }
 </ul>
-<p>@Html.ActionLink("Generate Optimal Groups", "DisplayGenerated", "Groups")</p>
+@using (Html.BeginForm("DisplayGenerated", "Groups", FormMethod.Get))
+{
+  @Html.Label("Group Size")
+  @Html.DropDownList("groupSize", new SelectList(new List<int>(){2, 3, 4, 5, 6, 7, 8}))
+
+  <button type="submit" class="btn btn-primary" title="Generate Groups">Generate Groups</button>
+}
 <p>@Html.ActionLink("Click Here to Add Students", "AddStudents", "Students")</p>
 <!-- @* @using (Html.BeginForm("Students", "Index", FormMethod.Post))
   {

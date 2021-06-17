@@ -3,7 +3,13 @@
 }
 
 <h1>Groups:</h1>
-<p>@Html.ActionLink("Generate Groups", "DisplayGenerated")</p>
+@using (Html.BeginForm("DisplayGenerated", "Groups", FormMethod.Get))
+{
+  @Html.Label("Group Size")
+  @Html.DropDownList("groupSize", new SelectList(new List<int>(){2, 3, 4, 5, 6, 7, 8}))
+
+  <button type="submit" class="btn btn-primary" title="Generate Groups">Generate Groups</button>
+}
 <ul>
   @foreach (Group group in Model)
   {
