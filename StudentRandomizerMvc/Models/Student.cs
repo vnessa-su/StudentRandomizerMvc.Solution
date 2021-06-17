@@ -80,6 +80,11 @@ namespace StudentRandomizerMvc.Models
       var apiCallTask = ApiHelper.Delete(_route, id);
     }
 
+    public static void DeleteAll()
+    {
+      var apiCallTask = ApiHelper.DeleteAll(_route);
+    }
+
     public Student(string name)
     {
       this.Name = name;

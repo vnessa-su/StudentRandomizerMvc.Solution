@@ -51,9 +51,22 @@ namespace StudentRandomizerMvc.Controllers
       return RedirectToAction("Details", id);
     }
 
+    [HttpPost]
     public IActionResult Delete(int id)
     {
       Student.Delete(id);
+      return RedirectToAction("Index");
+    }
+
+    public IActionResult DeleteConfirmation()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public IActionResult DeleteAll()
+    {
+      Student.DeleteAll();
       return RedirectToAction("Index");
     }
 
