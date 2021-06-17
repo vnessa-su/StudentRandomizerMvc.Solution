@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,7 +8,9 @@ namespace StudentRandomizerMvc.Models
   {
     public static List<Group> SelectBestGroups(List<Group> allGroups, int numberOfGroups, List<Student> allStudents)
     {
-      List<Group> sortedGroupsByScore = allGroups.OrderBy(group => group.GroupScore).ToList();
+      Random rnd = new Random();
+      List<Group> shuffledGroups = allGroups.OrderBy(x => rnd.Next()).ToList();
+      List<Group> sortedGroupsByScore = shuffledGroups.OrderBy(group => group.GroupScore).ToList();
       List<Group> selectedGroups = new List<Group>();
       List<Student> studentsInSelectedGroups = new List<Student>();
 
@@ -42,6 +45,7 @@ namespace StudentRandomizerMvc.Models
       foreach (Student student in leftoverStudents)
       {
         groups[groupIndex].DevTeamStudents.Add(student);
+        groups[groupIndex].GroupScore = GroupScore.GetGroupScore(groups[groupIndex]);
         groupIndex++;
         if (groupIndex >= groupCount)
         {
